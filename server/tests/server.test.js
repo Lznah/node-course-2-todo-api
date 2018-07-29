@@ -149,3 +149,20 @@ describe('DELETE /todos/:id', () => {
       .end(done);
   });
 });
+
+describe('PATCH /todos/:id', () => {
+  it('should update the todo', (done) => {
+    var hexId = todos[0]._id.toHexString();
+    var newText = 'It works!';
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .send({
+        text : newText
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(newText);
+      })
+      .end(done);
+  });
+});
